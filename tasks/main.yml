@@ -1,2 +1,15 @@
 ---
 # tasks file for ansible-role-selinux
+
+- name: install libselinux-python for ansible selinux action
+  yum:
+    pkg:   libselinux-python
+    state: present
+  tags: [selinux]
+
+- name: disabled
+  selinux:
+    state: disabled
+  ignore_errors: yes
+  tags: [selinux]
+
