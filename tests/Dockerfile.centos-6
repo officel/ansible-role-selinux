@@ -3,10 +3,13 @@ FROM centos:6
 # Install Ansible
 RUN yum -y update; yum clean all;
 RUN yum -y install epel-release
-RUN yum -y install git python-setuptools gcc sudo libffi-devel python-devel openssl-devel
+RUN yum -y install git gcc sudo libffi-devel openssl-devel
 RUN yum clean all
-RUN easy_install pip
-RUN pip install ansible
+
+RUN cd /var/tmp && \
+    git clone https://github.com/tagomoris/xbuild.git && \
+    xbuild/python-install 2.7.9 /opt/python-2.7 && \
+    /opt/python-2.7/bin/pip install ansible
 
 
 # Disable requiretty
